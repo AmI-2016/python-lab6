@@ -16,9 +16,6 @@ limitations under the License
 '''
 
 
-# this script is an extension of the script todo_list_db_ex2b.py
-
-
 import requests
 import json
 

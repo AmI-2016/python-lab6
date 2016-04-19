@@ -5,27 +5,20 @@ Created on Apr 13, 2015
 @author: Luigi De Russis
 """
 
-from flask import Flask, jsonify, abort, request, Response, render_template
-from flask_bootstrap import Bootstrap  # needed for the simple web client, only
+from flask import Flask, jsonify, abort, request, Response
 
 import db_interaction
 
 app = Flask(__name__)
 
-# ---------- SIMPLE CLIENT ----------
-Bootstrap(app)
-
-
-@app.route('/')
-def index():
-    return render_template('index.html')
-
-
 # ---------- REST SERVER ----------
 @app.route('/api/v1.0/tasks', methods=['GET'])
 def get_tasks():
-    searchword = request.args.get('search_substring')
-    if searchword is None:
+    #we try to get the search_substring
+    search_substring = request.args.get('search_substring')
+
+    #if the search_substring is not set we have to return the full list of tasks
+    if search_substring is None:
         # init
         tasks = []
 
@@ -40,11 +33,13 @@ def get_tasks():
         # return the task data
         return jsonify({'tasks': tasks})
     else:
+        #if the search_substring is set we have to return a filtered list of tasks
+
         # init
         tasks = []
 
-        # get the task list from the db
-        task_list = db_interaction.get_filtered_tasks(searchword)
+        # get the filtered task list from the db
+        task_list = db_interaction.get_filtered_tasks(search_substring)
 
         # prepare the task list for jsonify
         for item in task_list:
@@ -111,6 +106,7 @@ def delete_task(task_id):
 
     # delete the task
     task = db_interaction.delete_task(int(task_id))
+
     return Response(status=200)
 
 

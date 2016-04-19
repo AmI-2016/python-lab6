@@ -50,7 +50,7 @@ def insert_task(text, urgent):
 
 def update_task(id_task, text, urgent):
     """
-    :param id: it represents the task id of the element we want to update
+    :param id_task: it represents the task id of the element we want to update
     :param text: text that we want to insert as task in the db
     :param urgent: 0 if the task is not urgent, 1 otherwise
 
@@ -79,7 +79,7 @@ def update_task(id_task, text, urgent):
 
 def delete_task(id_task):
     """
-    :param id: it represents the task id of the element we want to delete
+    :param id_task: it represents the task id of the element we want to delete
 
     Delete a task in the database
     """
@@ -132,7 +132,9 @@ def get_tasks():
 
 def get_filtered_tasks(search_substring):
     """
-    Get existing tasks from the database
+    :param search_substring: it represents the string that will be used as filter for tasks
+
+    Get filtered existing tasks from the database
     """
 
     tasks = []
