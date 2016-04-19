@@ -69,7 +69,7 @@ def insert_task():
     add_request = request.json
 
     # check whether a task is present in the request or not
-    if add_request is not None and ('description' and 'urgent') in add_request:
+    if (add_request is not None) and ('description' in add_request) and ('urgent' in add_request):
         text = add_request['description']
         urgent = add_request['urgent']
 
